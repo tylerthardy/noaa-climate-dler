@@ -5,7 +5,7 @@ tempFTP = "ftp://ftp.cdc.noaa.gov/Datasets/cpc_global_temp/" #https://www.esrl.n
 
 currentYear = as.numeric(format(Sys.Date(), "%Y"))
 
-downloadDir = "X:/DATA/"
+downloadDir = "C:/DATA/NOAA-CPC/"
 
 # Download NetCDF Files ---------------------------------------------------
 grabAllFilesFTP = function(ftpUrl) {
@@ -21,7 +21,8 @@ grabAllFilesFTP = function(ftpUrl) {
   # Download all files
   for (file in dir) {
     download.file(url = paste0(ftpUrl, file),
-                  destfile = paste0(downloadDir, file))
+                  destfile = paste0(downloadDir, file),
+                  mode = "wb")
   }
 }
 
@@ -53,7 +54,8 @@ grabYearsFTP = function(ftpUrl, years) {
     # Download file if the file hasn't been download, or is the current year (may have new data)
     if (!file.exists(destPath) | grepl(currentYear, fileName)) { 
       download.file(url = dlPath,
-                    destfile = destPath)
+                    destfile = destPath,
+                    mode = "wb")
     }
   }
 }
